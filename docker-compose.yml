@@ -4,9 +4,24 @@ services:
       context: ./api1
     ports:
       - "3000:3000"
+    environment:
+      DATABASE_URL: postgres://rudra:rudra@db:5432/dock
+    depends_on:
+      - db
 
   api_b:
     build:
       context: ./api2
     ports:
       - "8080:8080"
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: rudra
+      POSTGRES_PASSWORD: rudra
+      POSTGRES_DB: dock
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:

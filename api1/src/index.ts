@@ -1,4 +1,5 @@
 import express from "express";
+import pool from "./db/db.ts"
 const app = express();
 
 
@@ -9,8 +10,9 @@ app.get("/",(req,res)=>{
     res.send("Hello.this is the default gateway");
 });
 
-app.get("/health",(req,res)=>{
-    res.send("The server is running well");
+app.get("/health",async(req,res)=>{
+    const result = pool.query("SELECT NOW()");
+    res.send((await result).rows[0]);
 });
 
 app.get("/ninja",(req,res)=>{
