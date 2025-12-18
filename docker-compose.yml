@@ -1,0 +1,12 @@
+services:
+  api_a:
+    build:
+      context: ./api1
+    ports:
+      - "3000:3000"
+
+  api_b:
+    build:
+      context: ./api2
+    ports:
+      - "8080:8080"
